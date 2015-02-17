@@ -7,7 +7,7 @@ addons:
   apt_packages:
   - bc
 script: bundle exec chirp scripts
-after_success: bundle exec chirp pushback &>/dev/null
+after_script: bundle exec chirp pushback &>/dev/null
 after_failure: bundle exec chirp dumplogs
 notifications:
   webhooks:
