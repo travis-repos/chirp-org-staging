@@ -1,14 +1,65 @@
 language: ruby
-rvm: 2.2.0
-sudo: false
-cache:
-  apt: true
-addons:
-  apt_packages:
-  - bc
+
+rvm: 2.2.3
+
+linux_shared: &linux_shared
+  os: linux
+  addons:
+    apt:
+      packages:
+      - bc
+
+matrix:
+  include:
+  - sudo: required
+    dist: precise
+    env: INTEGRATION_SPECS=1
+    <<: *linux_shared
+  - sudo: required
+    dist: precise
+    env: NO_INTEGRATION_SPECS=1
+    <<: *linux_shared
+  - sudo: required
+    dist: trusty
+    env: INTEGRATION_SPECS=1
+    <<: *linux_shared
+  - sudo: required
+    dist: trusty
+    env: NO_INTEGRATION_SPECS=1
+    <<: *linux_shared
+  - sudo: false
+    dist: precise
+    env: INTEGRATION_SPECS=1
+    <<: *linux_shared
+  - sudo: false
+    dist: precise
+    env: NO_INTEGRATION_SPECS=1
+    <<: *linux_shared
+  # - sudo: false
+  #   dist: trusty
+  #   env: INTEGRATION_SPECS=1
+  #   <<: *linux_shared
+  # - sudo: false
+  #   dist: trusty
+  #   env: NO_INTEGRATION_SPECS=1
+  #   <<: *linux_shared
+  - os: osx
+    env: INTEGRATION_SPECS=1
+  - os: osx
+    env: NO_INTEGRATION_SPECS=1
+  - os: osx
+    osx_image: xcode7
+    env: INTEGRATION_SPECS=1
+  - os: osx
+    osx_image: xcode7
+    env: NO_INTEGRATION_SPECS=1
+
 script: bundle exec chirp scripts
+
 after_script: bundle exec chirp pushback &>/dev/null
+
 after_failure: bundle exec chirp dumplogs
+
 notifications:
   webhooks:
     urls:
