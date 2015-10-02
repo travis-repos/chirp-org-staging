@@ -13,46 +13,29 @@ matrix:
   include:
   - sudo: required
     dist: precise
-    env: INTEGRATION_SPECS=1
-    <<: *linux_shared
-  - sudo: required
-    dist: precise
-    env: NO_INTEGRATION_SPECS=1
+    env: QUEUE=linux DIST=precise
     <<: *linux_shared
   - sudo: required
     dist: trusty
-    env: INTEGRATION_SPECS=1
+    env: QUEUE=gce DIST=trusty
     <<: *linux_shared
-  - sudo: required
-    dist: trusty
-    env: NO_INTEGRATION_SPECS=1
-    <<: *linux_shared
+  # - sudo: required
+  #   dist: precise
+  #   env: QUEUE=gce DIST=precise
+  #   <<: *linux_shared
   - sudo: false
     dist: precise
-    env: INTEGRATION_SPECS=1
-    <<: *linux_shared
-  - sudo: false
-    dist: precise
-    env: NO_INTEGRATION_SPECS=1
+    env: QUEUE=docker DIST=precise
     <<: *linux_shared
   # - sudo: false
   #   dist: trusty
-  #   env: INTEGRATION_SPECS=1
-  #   <<: *linux_shared
-  # - sudo: false
-  #   dist: trusty
-  #   env: NO_INTEGRATION_SPECS=1
+  #   env: QUEUE=docker DIST=trusty
   #   <<: *linux_shared
   - os: osx
-    env: INTEGRATION_SPECS=1
-  - os: osx
-    env: NO_INTEGRATION_SPECS=1
+    env: QUEUE=macstadium6 IMAGE=default
   - os: osx
     osx_image: xcode7
-    env: INTEGRATION_SPECS=1
-  - os: osx
-    osx_image: xcode7
-    env: NO_INTEGRATION_SPECS=1
+    env: QUEUE=macstadium6 IMAGE=xcode7
 
 script: bundle exec chirp scripts
 
