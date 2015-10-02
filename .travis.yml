@@ -42,7 +42,7 @@ matrix:
 
 script: bundle exec chirp scripts
 
-after_script: bundle exec chirp pushback &>/dev/null
+after_script: bundle exec chirp sendstats 2>/dev/null
 
 after_failure: bundle exec chirp dumplogs
 
