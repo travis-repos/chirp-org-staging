@@ -13,10 +13,6 @@ linux_shared: &linux_shared
 matrix:
   include:
   - sudo: required
-    dist: precise
-    env: QUEUE=linux DIST=precise
-    <<: *linux_shared
-  - sudo: required
     dist: trusty
     env: QUEUE=gce DIST=trusty
     <<: *linux_shared
