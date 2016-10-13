@@ -8,6 +8,7 @@ env:
   global:
   - CHIRP_SUMMARY_OUTPUT="${TRAVIS_BUILD_DIR}/chirp.json"
   - CHIRP_TRACKER_STATS_URL="https://chirp-tracker-staging.herokuapp.com/stats"
+  - SITE="org"
 
 addons: { apt: { packages: [bc] } }
 
