@@ -4,6 +4,11 @@ sudo: false
 
 rvm: 2.3.1
 
+env:
+  global:
+  - CHIRP_SUMMARY_OUTPUT="${TRAVIS_BUILD_DIR}/chirp.json"
+  - CHIRP_TRACKER_STATS_URL="https://chirp-tracker-staging.herokuapp.com/stats"
+
 addons: { apt: { packages: [bc] } }
 
 linux_shared: &linux_shared
