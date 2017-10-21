@@ -2,8 +2,6 @@ language: ruby
 sudo: false
 rvm: 2.4.2
 env:
-  matrix:
-  - QUEUE=ec2 DIST=trusty
   global:
   - CHIRP_SUMMARY_OUTPUT="${TRAVIS_BUILD_DIR}/chirp.json"
   - CHIRP_TRACKER_STATS_URL="https://chirp-tracker-staging.herokuapp.com/stats"
@@ -21,6 +19,10 @@ matrix:
   - sudo: required
     dist: precise
     env: QUEUE=gce DIST=precise
+    <<: *linux_shared
+  - sudo: false
+    dist: trusty
+    env: QUEUE=ec2 DIST=trusty
     <<: *linux_shared
   - group: packet-test
     dist: trusty
