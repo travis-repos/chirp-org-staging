@@ -1,9 +1,9 @@
 language: ruby
 sudo: false
-rvm: 2.3.1
+rvm: 2.4.2
 env:
   matrix:
-  - QUEUE=docker DIST=precise
+  - QUEUE=ec2 DIST=trusty
   global:
   - CHIRP_SUMMARY_OUTPUT="${TRAVIS_BUILD_DIR}/chirp.json"
   - CHIRP_TRACKER_STATS_URL="https://chirp-tracker-staging.herokuapp.com/stats"
@@ -22,17 +22,17 @@ matrix:
     dist: precise
     env: QUEUE=gce DIST=precise
     <<: *linux_shared
-  - sudo: false
+  - group: packet-test
     dist: trusty
-    env: QUEUE=ec2 DIST=trusty
+    env: QUEUE=packet DIST=trusty
     <<: *linux_shared
   - os: osx
     rvm: default
     env: QUEUE=macstadium6 IMAGE=default
   - os: osx
-    osx_image: xcode7
+    osx_image: xcode8
     rvm: default
-    env: QUEUE=macstadium6 IMAGE=xcode7
+    env: QUEUE=macstadium6 IMAGE=xcode8
 script: bundle exec chirp scripts
 after_script: bundle exec chirp sendstats 2>/dev/null
 after_failure: bundle exec chirp dumplogs
