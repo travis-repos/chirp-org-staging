@@ -1,5 +1,5 @@
 language: ruby
-group: ec2-bench00
+group: ec2-bench01
 sudo: false
 rvm: 2.3.1
 env:
