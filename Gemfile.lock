@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/travis-infrastructure/chirp.git
-  revision: f969914c4805a91d2e44a9ee2d6fd08d478c6ef2
+  remote: https://github.com/travis-ci/chirp.git
+  revision: 035cdb0373e6f32deaa4e34b98fa9193aac33e26
   specs:
     chirp (0.1.0)
 
@@ -15,4 +15,4 @@ DEPENDENCIES
   chirp!
 
 BUNDLED WITH
-   1.13.6
+   1.16.1

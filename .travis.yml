@@ -1,12 +1,11 @@
 language: ruby
 sudo: false
-rvm: 2.3.1
+rvm: 2.5.1
 env:
   matrix:
-  - QUEUE=docker DIST=precise
+  - QUEUE=docker DIST=trusty
   global:
   - CHIRP_SUMMARY_OUTPUT="${TRAVIS_BUILD_DIR}/chirp.json"
-  - CHIRP_TRACKER_STATS_URL="https://chirp-tracker-staging.herokuapp.com/stats"
   - SITE=org
 addons: { apt: { packages: [bc] } }
 linux_shared: &linux_shared
@@ -14,17 +13,18 @@ linux_shared: &linux_shared
   addons: { apt: { packages: [bc] } }
 matrix:
   include:
+  - sudo: false
+    dist: trusty
+    env: QUEUE=ec2 DIST=trusty
+    <<: *linux_shared
   - sudo: required
     dist: trusty
     env: QUEUE=gce DIST=trusty
     <<: *linux_shared
   - sudo: required
-    dist: precise
-    env: QUEUE=gce DIST=precise
-    <<: *linux_shared
-  - sudo: false
-    dist: trusty
-    env: QUEUE=ec2 DIST=trusty
+    dist: xenial
+    group: edge
+    env: QUEUE=gce DIST=xenial
     <<: *linux_shared
   - os: osx
     rvm: default
@@ -33,12 +33,9 @@ matrix:
     osx_image: xcode7
     rvm: default
     env: QUEUE=macstadium6 IMAGE=xcode7
+before_install:
+- gem update --system
+- gem install bundler
 script: bundle exec chirp scripts
 after_script: bundle exec chirp sendstats 2>/dev/null
 after_failure: bundle exec chirp dumplogs
-notifications:
-  webhooks:
-    urls:
-    - 'https://chirp-tracker-production.herokuapp.com/travis'
-    on_success: always
-    on_failure: never
