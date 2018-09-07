@@ -26,16 +26,11 @@ matrix:
     group: edge
     env: QUEUE=gce DIST=xenial
     <<: *linux_shared
-  - os: osx
-    rvm: default
-    env: QUEUE=macstadium6 IMAGE=default
-  - os: osx
-    osx_image: xcode7
-    rvm: default
-    env: QUEUE=macstadium6 IMAGE=xcode7
 before_install:
 - gem update --system
 - gem install bundler
-script: bundle exec chirp scripts
-after_script: bundle exec chirp sendstats 2>/dev/null
+script:
+- bundle exec chirp scripts
+- type travis_whereami
+- travis_whereami
 after_failure: bundle exec chirp dumplogs
