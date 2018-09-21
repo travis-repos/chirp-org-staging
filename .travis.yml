@@ -7,10 +7,12 @@ env:
   global:
   - CHIRP_SUMMARY_OUTPUT="${TRAVIS_BUILD_DIR}/chirp.json"
   - SITE=org
-addons: { apt: { packages: [bc] } }
+addons:
+  apt: { packages: [bc, iperf3] }
+  homebrew: { packages: [iperf3] }
 linux_shared: &linux_shared
   os: linux
-  addons: { apt: { packages: [bc] } }
+  addons: { apt: { packages: [bc, iperf3] } }
 matrix:
   include:
   - sudo: false
