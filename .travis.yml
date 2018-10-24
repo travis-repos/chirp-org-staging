@@ -38,6 +38,11 @@ matrix:
 before_install:
 - gem update --system
 - gem install bundler
+- |
+  if command -v gcloud &>/dev/null; then
+    openssl aes-256-cbc -K $encrypted_3cb1ee05e542_key -iv $encrypted_3cb1ee05e542_iv -in gs-travis-chirp.json.enc -out gs-travis-chirp.json -d
+    gcloud auth activate-service-account "$(jq -r .client_email <gs-travis-chirp.json)" --key-file $(pwd)/gs-travis-chirp.json
+  fi
 script: bundle exec chirp scripts
 after_script: bundle exec chirp sendstats 2>/dev/null
 after_failure: bundle exec chirp dumplogs
